@@ -32,7 +32,7 @@ CREATE TABLE `t3` (
 **脚本使用**
 
 ```shell
-# 测试 SQL 和 run_tidb.py 脚本需要同级目录下,执行脚本要进入 Script 目录下，否则可能找不到 test.sql 文件。
+# 测试 SQL 和 run_tidb.py 脚本需要同级目录下,执行脚本要进入 Script 目录下，否则可能找不到 sql 文件。
 cd Script/
 
 # 查看用法
