@@ -143,3 +143,30 @@ delete from t1 join t2 on t1.id=t2.id
 set t1.cname = 'a' 
 where t2.id in (select t1.id from t1 where t1.id = 10 order by t1.id limit 1);
 ```
+
+**参测产品需支持DELETE ORDER BY等语法。**
+
+```sql
+delete from t1 where  t1.id in (select id from t1 where id = 10 order by id limit 1);
+```
+
+**参测产品需支持时间函数精确到毫秒、时间函数取值在计算节点实现并做到全局不紊乱**
+
+```sql
+MySQL [test]> select * from t1;
++----+-------+-------------------------+------+
+| id | cname | start_time              | cid  |
++----+-------+-------------------------+------+
+|  1 | a     | 2020-10-20 16:20:34.084 |    1 |
+|  2 | b     | 2020-10-20 16:20:34.000 |    2 |
+|  3 | c     | 2020-10-20 16:20:34.000 |    3 |
+|  4 | a     | 2020-10-20 16:23:52.652 |    1 |
+|  5 | b     | 2020-10-20 16:23:52.000 |    2 |
+|  6 | c     | 2020-10-20 16:23:52.000 |    3 |
++----+-------+-------------------------+------+
+6 rows in set (0.00 sec)
+```
+
+**危险SQL操作拦截，对不符合设计规范的SQL语句、涉及数据访问安全的SQL语句进行拦截**
+
+相关 [PR](http://github.com/pingcap/tidb/pull/20184/files) (需要 TIDB master 版本)
