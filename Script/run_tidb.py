@@ -30,12 +30,13 @@ def mysql_exe():
         pass
 
     try:
-        _sql = open("test.sql","r+").read()
+        i_sql = open("insert.sql","r+").read()
+        d_sql = open("delete.sql","r+").read()
         cursor = connection.cursor()
         cursor.execute("SET NAMES utf8mb4")
-        cursor.execute(_sql)
+        cursor.execute(i_sql)
         print("insert into sucessfull~")
-        cursor.execute('delete from t3 limit 1')
+        cursor.execute(d_sql)
         print("delete sucessfull~")
         cursor.close()
         connection.commit()

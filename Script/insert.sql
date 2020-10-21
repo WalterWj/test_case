@@ -1,0 +1,1 @@
+INSERT INTO t3 (cname,start_time,cid) values ("test",now(3),1)
