@@ -36,8 +36,9 @@ def mysql_exe():
         cursor.execute("SET NAMES utf8mb4")
         cursor.execute(i_sql)
         print("insert into sucessfull~")
-        cursor.execute(d_sql)
-        print("delete sucessfull~")
+        if args.mode == 'id':
+            cursor.execute(d_sql)
+            print("delete sucessfull~")
         cursor.close()
         connection.commit()
     except all as error:
@@ -52,6 +53,7 @@ def main():
     threads = []
     for i in range(args.thread_num):
         threads.append(Thread(target=mysql_exe,))
+        print("execute thread: {}".format(i))
     for t in threads:
         t.start()
     for t in threads:
@@ -65,7 +67,8 @@ def parser_args():
     parser.add_argument("-p",dest="password", help="TiDB's passwd",default='')
     parser.add_argument("-b",dest="database",help="TiDB's database", default="test")
     parser.add_argument("--thread",dest="thread_num",help="execute thread",default=5)
-    parser.add_argument("--exe",dest="range_num",help="Execution times",default=100)
+    parser.add_argument("--exe",dest="range_num",help="Execution times",default=10)
+    parser.add_argument("--mode",dest="mode",help="Test Case: id is insert and delete,Only test insert by default",default="insert")
     args = parser.parse_args()
 
     return args
@@ -74,8 +77,9 @@ if __name__ == "__main__":
     args = parser_args()
     range_num, thread_num = args.range_num, args.thread_num
     st = time.time()
-    for i in range(range_num/thread_num):
+    for i in range(range_num):
         main()
+        print('execute number: {}'.format(i+1))
     ct = time.time() - st
     print("total cost time: {}s").format(ct)
     print("avg is: {}s").format(ct/range_num)
