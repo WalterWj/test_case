@@ -32,13 +32,12 @@ CREATE TABLE `t3` (
 **脚本使用**
 
 ```shell
-# 测试 SQL 和 run_tidb.py 脚本需要同级目录下,执行脚本要进入 Script 目录下，否则可能找不到 sql 文件。
 cd Script/
 
 # 查看用法
-[root@centos76_vm Script]# ./run_tidb.py -h
 usage: run_tidb.py [-h] [--host HOST] [-P PORT] [-u USER] [-p PASSWORD]
                    [-b DATABASE] [--thread THREAD_NUM] [--exe RANGE_NUM]
+                   [--mode MODE] [--limit LIMIT]
 
 Test case for cq
 
@@ -51,10 +50,15 @@ optional arguments:
   -b DATABASE          TiDB's database
   --thread THREAD_NUM  execute thread
   --exe RANGE_NUM      Execution times
+  --mode MODE          Test Case: id is insert and delete,Only test insert by
+                       default
+  --limit LIMIT        How many rows to delete or insert
+[root@centos76_vm Script]# 
 ```
 
 **说明**
 
-1. 实际脚本执行的是 insert.sql 文件内容，再执行 delete.sql 文件内容
-2. --thread 是执行并发
-3. --exe 是执行次数
+1. --thread 是执行并发
+2. --exe 是执行次数
+3. --mode 默认是只插入，指定为 id 时，会执行 insert & delete
+4. --limit 指定一个事务中 insert 和 delete 的行数
