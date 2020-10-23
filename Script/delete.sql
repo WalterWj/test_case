@@ -1,1 +1,1 @@
-DELETE from t3 limit 1;
+DELETE from t3 limit 1000;

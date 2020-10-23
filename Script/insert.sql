@@ -1,1 +1,1 @@
-INSERT INTO t3 (cname,start_time,cid) values ("test",now(3),1)
+INSERT INTO t3 (cname,start_time,cid) values (RAND() * 10000,now(3), RAND() * 10000)
