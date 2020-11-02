@@ -139,9 +139,7 @@ select t2.cname ,count(1) as cnt from t2 group by cname;
 delete from t1 where  t1.id in (select id from t1 where id = 10 order by id limit 1);
 
 -- 多表关联子查询 delete
-delete from t1 join t2 on t1.id=t2.id 
-set t1.cname = 'a' 
-where t2.id in (select t1.id from t1 where t1.id = 10 order by t1.id limit 1);
+DELETE T1, T2 FROM T1 INNER JOIN T2 ON T1.id = T2.id WHERE t2.id in (select t1.id from t1 where t1.id = 10 order by t1.id limit 1);
 ```
 
 **参测产品需支持DELETE ORDER BY等语法。**
