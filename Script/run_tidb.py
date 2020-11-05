@@ -6,7 +6,7 @@ from threading import Thread
 import time
 import mysql.connector
 import argparse
-## If Python is version 2.7, encoding problems can reload sys configuration
+# If Python is version 2.7, encoding problems can reload sys configuration
 try:
     import sys
 
